@@ -412,13 +412,16 @@
 
   <div class="phone reveal">
     <div class="screen">
+      <!-- Motion-graphics advert embedded as iframe -->
+      <iframe src="video.html" title="BEHAS Advert" style="width:100%;height:100%;border:0;display:block" allow="autoplay"></iframe>
+
       <!-- When the real MP4 is ready, swap this video tag's src and remove [hidden] -->
       <video id="realVideo" playsinline muted loop autoplay hidden>
         <source src="behas-advert.mp4" type="video/mp4" />
       </video>
 
-      <!-- Auto-playing CSS preview reel (fallback until MP4 is dropped in) -->
-      <div class="reel" id="cssReel">
+      <!-- Legacy fallback reel (kept hidden; not used since iframe is primary) -->
+      <div class="reel" id="cssReel" hidden>
         <div class="watermark">BEHAS · Preview</div>
 
         <!-- Scene 1 — Morning -->
@@ -497,7 +500,8 @@
   </div>
 
   <div class="controls reveal">
-    <button onclick="document.getElementById('cssReel').style.animationPlayState='running';restartReel()">▶ Replay preview</button>
+    <button onclick="document.querySelector('.phone iframe').src='video.html?t='+Date.now()">▶ Replay advert</button>
+    <a href="video.html" target="_blank" class="btn-ghost" style="padding:10px 18px">Watch fullscreen ↗</a>
     <a href="#contact" class="btn-ghost" style="padding:10px 18px">Share with client</a>
   </div>
 
