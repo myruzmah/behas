@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>BEHAS — Instagram Post Advert</title>
+<style>
+  :root{
+    --green-deep:#0a2e22;
+    --green:#155a40;
+    --green-bright:#1d6b4f;
+    --gold:#d4a64a;
+    --gold-soft:#e7c780;
+    --gold-hot:#f5d17a;
+    --cream:#f7f1e3;
+    --brown:#3b2a1d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    width:100%;min-height:100%;background:#111;
+    color:var(--cream);font-family:"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;
+    padding:30px 16px;
+  }
+
+  /* =========================
+     Instagram post frame (4:5)
+     ========================= */
+  .ig{
+    width:min(92vw,560px);aspect-ratio:4/5;
+    background:#000;border-radius:14px;overflow:hidden;position:relative;
+    box-shadow:0 40px 90px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06)
+  }
+
+  /* IG header */
+  .ig-head{
+    position:absolute;top:0;left:0;right:0;height:8%;z-index:30;
+    display:flex;align-items:center;justify-content:space-between;padding:0 14px;
+    background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,0));
+    color:#fff;font-size:13px
+  }
+  .ig-head .profile{display:flex;align-items:center;gap:10px}
+  .avatar{
+    width:32px;height:32px;border-radius:50%;
+    background:conic-gradient(from 200deg,#f58529,#dd2a7b,#8134af,#515bd4,#f58529);
+    padding:2px
+  }
+  .avatar>div{
+    width:100%;height:100%;border-radius:50%;background:var(--green-deep);
+    display:flex;align-items:center;justify-content:center;
+    font-family:Georgia,serif;font-weight:700;color:var(--gold);font-size:13px;letter-spacing:1px
+  }
+  .handle{font-weight:600;font-size:13px}
+  .handle small{display:block;font-weight:400;opacity:.7;font-size:11px}
+  .ig-head .dots{font-size:20px;letter-spacing:2px}
+
+  /* IG footer (like/comment/share icons) */
+  .ig-foot{
+    position:absolute;bottom:0;left:0;right:0;height:10%;z-index:30;
+    background:linear-gradient(0deg,rgba(0,0,0,.6),rgba(0,0,0,0));
+    padding:10px 14px 12px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end
+  }
+  .ig-icons{display:flex;gap:16px;align-items:center;margin-bottom:4px}
+  .ig-icons svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.6}
+  .ig-icons .right{margin-left:auto}
+  .ig-caption{font-size:11px;line-height:1.4;opacity:.95}
+  .ig-caption b{font-weight:700}
+
+  /* =========================
+     Reel stage
+     ========================= */
+  .reel{position:absolute;inset:0;overflow:hidden}
+  .scene{position:absolute;inset:0;opacity:0;display:flex;align-items:center;justify-content:center;padding:12% 6% 14%}
+  .s1{animation:s 30s infinite;animation-delay:0s}
+  .s2{animation:s 30s infinite;animation-delay:-26.5s}
+  .s3{animation:s 30s infinite;animation-delay:-22s}
+  .s4{animation:s 30s infinite;animation-delay:-17s}
+  .s5{animation:s 30s infinite;animation-delay:-12s}
+  .s6{animation:s 30s infinite;animation-delay:-6s}
+  .s7{animation:s 30s infinite;animation-delay:-2s}
+  @keyframes s{
+    0%{opacity:0}
+    1%{opacity:1}
+    15%{opacity:1}
+    17%{opacity:0}
+    100%{opacity:0}
+  }
+
+  .eyebrow{display:block;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;opacity:0;animation:fadeUp .6s .2s forwards}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:#fff;text-align:center;line-height:1}
+  h1{font-size:clamp(28px,7vw,54px)}
+  h1 em{color:var(--gold);font-style:italic}
+
+  /* progress bar */
+  .progress{position:absolute;left:0;right:0;top:8%;height:2px;background:rgba(255,255,255,.12);z-index:25}
+  .progress::after{content:"";position:absolute;left:0;top:0;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-hot));animation:bar 30s linear infinite}
+  @keyframes bar{from{width:0}to{width:100%}}
+
+  /* ============== SCENE 1 · Opener ============== */
+  .s1{background:radial-gradient(circle at 50% 50%,#0f3b2e,#050f0b)}
+  .s1 .logo{text-align:center}
+  .s1 .logo .sm{font-size:10px;letter-spacing:6px;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp .6s .3s forwards}
+  .s1 .logo .big{
+    font-family:Georgia,serif;font-weight:700;font-size:clamp(56px,15vw,110px);letter-spacing:8px;
+    background:linear-gradient(180deg,var(--gold-hot),var(--gold) 60%,#9a7024);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    margin:14px 0;opacity:0;transform:scale(1.1);animation:logoIn 1.1s .5s cubic-bezier(.2,.8,.2,1) forwards
+  }
+  @keyframes logoIn{to{opacity:1;transform:none}}
+  .s1 .logo .line{height:1px;width:0;background:var(--gold);margin:14px auto;animation:lineGrow 1s 1.3s forwards}
+  @keyframes lineGrow{to{width:120px}}
+  .s1 .logo .t{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#cdbf94;opacity:0;animation:fadeUp .6s 1.6s forwards}
+
+  /* ============== SCENE 2 · Branded Pack Reveal ============== */
+  .s2{background:radial-gradient(circle at 50% 50%,#1d6b4f,#050f0b 80%)}
+  .s2 .halo{position:absolute;top:50%;left:50%;width:90%;height:90%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(212,166,74,.2),transparent 60%);filter:blur(20px);animation:pulseGlow 3s ease-in-out infinite}
+  @keyframes pulseGlow{0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
+
+  /* Branded carton */
+  .carton{
+    position:relative;width:55%;aspect-ratio:4/5.5;
+    background:
+      linear-gradient(180deg,transparent 45%,rgba(212,166,74,.1) 48%,transparent 52%),
+      linear-gradient(160deg,#1d6b4f,#0a2e22);
+    border-radius:6px;padding:16px 14px;
+    border:1px solid rgba(212,166,74,.5);
+    box-shadow:0 30px 60px rgba(0,0,0,.6),inset 0 0 40px rgba(212,166,74,.08);
+    display:flex;flex-direction:column;justify-content:space-between;color:#fff;
+    animation:packFloat 5s ease-in-out infinite
+  }
+  @keyframes packFloat{0%,100%{transform:translateY(0) rotateY(-6deg)}50%{transform:translateY(-8px) rotateY(6deg)}}
+  .carton .t1{font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;text-align:center}
+  .carton .crest{
+    width:40px;height:40px;margin:6px auto;border-radius:50%;border:1px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:Georgia,serif;font-size:18px;font-weight:700
+  }
+  .carton .name{
+    font-family:Georgia,serif;font-weight:700;font-size:clamp(36px,9vw,60px);letter-spacing:4px;
+    text-align:center;color:var(--cream);line-height:1;margin-top:4px
+  }
+  .carton .cat{font-size:9px;letter-spacing:3px;color:#cdbf94;text-transform:uppercase;text-align:center;margin-top:6px}
+  .carton .ornament{
+    height:1px;width:80%;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:10px auto
+  }
+  .carton .tagline{font-size:9px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;text-align:center}
+  .carton .foot{display:flex;justify-content:space-between;font-size:8px;letter-spacing:2px;color:#cdbf94;text-transform:uppercase;margin-top:auto}
+
+  /* Sachet */
+  .sachet{
+    position:absolute;right:6%;bottom:18%;width:26%;aspect-ratio:2/3;
+    background:linear-gradient(180deg,#f7f1e3,#e7d8b0);
+    border-radius:4px;padding:10px 8px;color:var(--green-deep);
+    box-shadow:0 20px 40px rgba(0,0,0,.5);
+    display:flex;flex-direction:column;justify-content:space-between;
+    transform:rotate(8deg);animation:sachetFloat 5s ease-in-out infinite}
+  @keyframes sachetFloat{0%,100%{transform:rotate(8deg) translateY(0)}50%{transform:rotate(6deg) translateY(-6px)}}
+  .sachet::before{content:"";position:absolute;inset:4px;border:1px solid rgba(21,90,64,.2);border-radius:2px;pointer-events:none}
+  .sachet .st{font-size:7px;letter-spacing:2px;color:var(--green);text-transform:uppercase;text-align:center}
+  .sachet .sbrand{font-family:Georgia,serif;font-weight:700;font-size:clamp(18px,5vw,28px);color:var(--green-deep);text-align:center;letter-spacing:2px;line-height:1}
+  .sachet .sleaf{width:14px;height:22px;background:var(--green);border-radius:0 100% 0 100%;margin:4px auto;transform:rotate(-20deg)}
+  .sachet .sc{font-size:6px;letter-spacing:1.5px;color:var(--green);text-transform:uppercase;text-align:center;margin-top:auto}
+  .sachet .string{position:absolute;top:-14px;left:50%;width:1px;height:14px;background:#cdbf94;transform:translateX(-50%)}
+  .sachet .tag{
+    position:absolute;top:-26px;left:50%;transform:translateX(-50%);
+    background:var(--gold);color:var(--green-deep);font-size:7px;letter-spacing:1.5px;font-weight:800;
+    padding:2px 6px;border-radius:2px
+  }
+
+  .s2 .cap-bot{
+    position:absolute;bottom:15%;left:0;right:0;text-align:center;
+    font-family:Georgia,serif;font-style:italic;font-size:clamp(13px,2.8vw,20px);color:#fff;padding:0 8%;
+    opacity:0;animation:fadeUp .8s 2s forwards
+  }
+
+  /* ============== SCENE 3 · Family Ritual ============== */
+  .s3{background:linear-gradient(180deg,#f2c581,#c57a3e 50%,#5a2e1c)}
+  .family-stage{position:absolute;inset:0;overflow:hidden}
+  .room-light{position:absolute;top:0;left:0;right:0;height:45%;background:radial-gradient(ellipse at 50% 0%,rgba(255,230,180,.5),transparent 60%)}
+  .family-stage .floor{position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(180deg,#6b3a1d,#3b1e10)}
+  .family-stage .table{position:absolute;bottom:28%;left:10%;right:10%;height:14%;background:linear-gradient(180deg,#8a5a2a,#5a3516);border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+  .family-stage .table::before{content:"";position:absolute;bottom:-40%;left:8%;width:6%;height:40%;background:#3b1e10}
+  .family-stage .table::after{content:"";position:absolute;bottom:-40%;right:8%;width:6%;height:40%;background:#3b1e10}
+
+  /* Family silhouettes */
+  .fam{position:absolute;bottom:38%;display:flex;justify-content:center;gap:6%;left:0;right:0}
+  .fig{width:20%;aspect-ratio:1/2;position:relative;opacity:0;animation:famIn 1s forwards}
+  .fig.f1{animation-delay:.3s}
+  .fig.f2{animation-delay:.6s}
+  .fig.f3{animation-delay:.9s}
+  @keyframes famIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .fig .head{width:44%;height:30%;border-radius:50%;margin:0 auto;background:linear-gradient(180deg,#7a4a2a,#3b2114)}
+  .fig .body{
+    width:100%;height:68%;margin-top:2%;
+    border-radius:30% 30% 10% 10% / 20% 20% 10% 10%;
+    background:linear-gradient(180deg,#1d6b4f,#0f3b2e)
+  }
+  .fig.child .head{width:50%;height:36%}
+  .fig.child .body{background:linear-gradient(180deg,#d4a64a,#8f6d23)}
+
+  .mug{position:absolute;bottom:40%;width:9%;aspect-ratio:1/1;background:#f7f1e3;border-radius:2px 2px 50% 50%;left:22%;box-shadow:0 4px 8px rgba(0,0,0,.4)}
+  .mug::after{content:"";position:absolute;inset:12% 12% 12% 12%;background:linear-gradient(180deg,#caa24a,#7a4a1d);border-radius:0 0 50% 50%}
+  .mug.m2{left:auto;right:22%}
+
+  /* Small BEHAS carton on table */
+  .table-pack{
+    position:absolute;bottom:38%;left:46%;width:9%;aspect-ratio:3/4;
+    background:linear-gradient(160deg,#1d6b4f,#0a2e22);border:.5px solid var(--gold);
+    border-radius:2px;box-shadow:0 6px 12px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center
+  }
+  .table-pack span{font-family:Georgia,serif;font-weight:700;font-size:8px;color:var(--gold);letter-spacing:1px}
+
+  .s3 .fam-cap{
+    position:absolute;top:16%;left:0;right:0;text-align:center;
+    font-family:Georgia,serif;font-size:clamp(20px,4.6vw,34px);color:#fff;padding:0 6%;
+    opacity:0;animation:fadeUp .9s 1.2s forwards;text-shadow:0 2px 10px rgba(0,0,0,.3)
+  }
+  .s3 .fam-cap em{color:var(--gold);font-style:italic}
+  .s3 .badge{
+    position:absolute;top:11%;left:50%;transform:translateX(-50%);
+    background:rgba(0,0,0,.45);backdrop-filter:blur(4px);border:1px solid var(--gold);
+    color:var(--gold);padding:6px 14px;border-radius:999px;
+    font-size:9px;letter-spacing:4px;text-transform:uppercase;font-weight:700;
+    opacity:0;animation:fadeUp .6s .4s forwards
+  }
+
+  /* ============== SCENE 4 · Morning ============== */
+  .s4{background:linear-gradient(180deg,#f3c97a,#c27b3d 50%,#0a2e22)}
+  .s4 .sun{position:absolute;top:18%;left:50%;transform:translate(-50%,-50%);width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,#fff,#fbe4a8 50%,transparent 75%);filter:blur(2px)}
+  .cup-illu{position:absolute;bottom:28%;left:50%;transform:translateX(-50%);width:30%}
+  .cup-illu .cup{position:relative;width:100%;aspect-ratio:1/.9;border:2px solid #fff;border-radius:10px 10px 50% 50% / 10px 10px 40% 40%;background:rgba(255,255,255,.08);overflow:hidden}
+  .cup-illu .cup::after{content:"";position:absolute;left:6px;right:6px;bottom:4px;height:0;background:linear-gradient(180deg,#e7c780,#7a4a1d);border-radius:0 0 50% 50%;animation:fill 2s .3s forwards}
+  @keyframes fill{to{height:72%}}
+  .cup-illu .steam{position:absolute;top:-40px;left:0;right:0;height:50px}
+  .cup-illu .steam span{position:absolute;bottom:0;width:10px;height:10px;background:rgba(255,255,255,.6);border-radius:50%;filter:blur(6px);animation:steamRise 3s ease-in infinite}
+  .cup-illu .steam span:nth-child(1){left:30%;animation-delay:.3s}
+  .cup-illu .steam span:nth-child(2){left:50%;animation-delay:1s}
+  .cup-illu .steam span:nth-child(3){left:68%;animation-delay:1.7s}
+  @keyframes steamRise{0%{transform:translateY(0) scale(1);opacity:0}30%{opacity:.6}100%{transform:translateY(-50px) scale(2);opacity:0}}
+  .cup-illu .handle{position:absolute;top:20%;right:-18%;width:22%;height:50%;border:2px solid #fff;border-left:none;border-radius:0 30px 30px 0}
+
+  .badge{
+    position:absolute;top:12%;left:50%;transform:translateX(-50%);
+    background:rgba(0,0,0,.35);backdrop-filter:blur(4px);border:1px solid var(--gold);
+    color:var(--gold);padding:6px 14px;border-radius:999px;
+    font-size:9px;letter-spacing:4px;text-transform:uppercase;font-weight:700;
+    opacity:0;animation:fadeUp .6s .3s forwards
+  }
+  .caption-bot{
+    position:absolute;bottom:16%;left:0;right:0;text-align:center;
+    font-family:Georgia,serif;font-size:clamp(18px,4vw,30px);color:#fff;padding:0 6%;
+    opacity:0;animation:fadeUp .9s 1.4s forwards;text-shadow:0 2px 10px rgba(0,0,0,.35)
+  }
+  .caption-bot em{color:var(--gold);font-style:italic}
+
+  /* ============== SCENE 5 · Evening ============== */
+  .s5{background:linear-gradient(180deg,#1e1a3c,#5b3a5c 55%,#2a1628)}
+  .s5 .moon{position:absolute;top:20%;right:22%;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,#fff 30%,#e9dcb5 60%,transparent 80%);box-shadow:0 0 60px rgba(255,255,255,.25)}
+  .s5 .stars span{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 2s ease-in-out infinite}
+  .s5 .stars span:nth-child(1){top:14%;left:22%}
+  .s5 .stars span:nth-child(2){top:22%;left:42%;animation-delay:.4s}
+  .s5 .stars span:nth-child(3){top:18%;left:65%;animation-delay:.8s;width:3px;height:3px}
+  .s5 .stars span:nth-child(4){top:10%;left:80%;animation-delay:1.2s}
+  .s5 .stars span:nth-child(5){top:34%;left:14%;animation-delay:1.6s}
+  @keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.4)}}
+
+  /* ============== SCENE 6 · Pricing ============== */
+  .s6{background:radial-gradient(circle at 50% 60%,#155a40 0%,#0a2e22 70%,#050f0b 100%)}
+  .price-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;padding:0 4%}
+  .price-wrap .head{text-align:center;margin-bottom:4px}
+  .price-wrap .head .e{font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp .6s .3s forwards}
+  .price-wrap .head h2{font-size:clamp(20px,4.6vw,32px);font-weight:400;color:#fff;margin-top:6px;opacity:0;animation:fadeUp .8s .6s forwards}
+  .price-wrap .head h2 em{color:var(--gold);font-style:italic}
+  .price-row{display:flex;gap:10px;width:100%;justify-content:center}
+  .price-card{
+    flex:1;max-width:48%;
+    background:linear-gradient(180deg,rgba(212,166,74,.15),rgba(212,166,74,.04));
+    border:1px solid var(--gold);border-radius:10px;padding:12px 10px;
+    opacity:0;transform:translateY(20px);text-align:center
+  }
+  .price-card.c1{animation:cardIn .8s 1s cubic-bezier(.2,.8,.2,1) forwards}
+  .price-card.c2{animation:cardIn .8s 1.4s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes cardIn{to{opacity:1;transform:none}}
+  .price-card h3{font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+  .price-card .qty{font-size:9px;color:#cdbf94;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+  .price-card .amount{font-family:Georgia,serif;font-weight:700;font-size:clamp(22px,5vw,32px);color:#fff;line-height:1;background:linear-gradient(180deg,#fff,var(--gold-soft));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .price-wrap .note{font-size:10px;color:#cdbf94;letter-spacing:4px;text-transform:uppercase;opacity:0;animation:fadeUp .6s 1.8s forwards;text-align:center}
+
+  /* ============== SCENE 7 · End Card ============== */
+  .s7{background:radial-gradient(circle at 50% 50%,#0a2e22,#050f0b 80%)}
+  .end{text-align:center}
+  .end .mark{font-family:Georgia,serif;font-weight:700;font-size:clamp(54px,14vw,100px);letter-spacing:8px;line-height:1;background:linear-gradient(180deg,var(--gold-hot),var(--gold) 55%,#9a7024);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;transform:scale(1.1);animation:logoIn 1.1s .2s cubic-bezier(.2,.8,.2,1) forwards}
+  .end .rule{height:1px;width:0;background:var(--gold);margin:14px auto;animation:lineGrow 1s 1s forwards}
+  .end .h{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:#cdbf94;opacity:0;animation:fadeUp .6s 1.3s forwards}
+  .end .tag{margin-top:16px;font-family:Georgia,serif;font-style:italic;font-size:clamp(14px,3vw,20px);color:var(--gold);opacity:0;animation:fadeUp .6s 1.6s forwards}
+  .end .follow{margin-top:20px;display:inline-block;padding:8px 20px;border:1px solid var(--gold);border-radius:999px;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp .6s 2s forwards}
+
+  /* caption below IG post */
+  .below{max-width:560px;margin:18px auto 0;padding:0 16px;color:#eee;font-size:13px;line-height:1.55}
+  .below b{color:#fff}
+  .actions{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .actions button,.actions a{
+    background:var(--gold);color:var(--green-deep);padding:10px 18px;border-radius:999px;
+    font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800;border:none;cursor:pointer;
+    text-decoration:none;transition:.3s
+  }
+  .actions a.ghost{background:transparent;color:#eee;border:1px solid rgba(255,255,255,.3)}
+  .actions button:hover,.actions a:hover{background:var(--gold-hot);transform:translateY(-2px)}
+  .actions a.ghost:hover{background:rgba(255,255,255,.06)}
+</style>
+</head>
+<body>
+
+<div style="text-align:center">
+  <div class="ig" id="ig">
+
+    <!-- IG header -->
+    <div class="ig-head">
+      <div class="profile">
+        <div class="avatar"><div>B</div></div>
+        <div class="handle">behas.tea<small>Ajami Natural Pharmacy</small></div>
+      </div>
+      <div class="dots">•••</div>
+    </div>
+
+    <!-- progress bar -->
+    <div class="progress"></div>
+
+    <!-- Reel -->
+    <div class="reel">
+
+      <!-- Scene 1 — Logo opener -->
+      <div class="scene s1">
+        <div class="logo">
+          <div class="sm">Ajami Natural Pharmacy</div>
+          <div class="big">BEHAS</div>
+          <div class="line"></div>
+          <div class="t">Herbal Wellness Tea</div>
+        </div>
+      </div>
+
+      <!-- Scene 2 — Branded Pack + Sachet -->
+      <div class="scene s2">
+        <div class="halo"></div>
+        <div class="carton">
+          <div class="t1">Ajami Natural Pharmacy</div>
+          <div class="crest">✦</div>
+          <div>
+            <div class="name">BEHAS</div>
+            <div class="cat">Herbal Wellness Tea</div>
+          </div>
+          <div class="ornament"></div>
+          <div class="tagline">Relax · Restore · Enjoy</div>
+          <div class="foot">
+            <span>30 pcs</span>
+            <span>Net 60g</span>
+          </div>
+        </div>
+        <div class="sachet">
+          <div class="string"></div>
+          <div class="tag">BEHAS</div>
+          <div class="st">Herbal Tea</div>
+          <div class="sbrand">BEHAS</div>
+          <div class="sleaf"></div>
+          <div class="sc">Ajami Natural Pharmacy</div>
+        </div>
+        <div class="cap-bot">Premium packaging. <em>Natural inside.</em></div>
+      </div>
+
+      <!-- Scene 3 — Family Ritual -->
+      <div class="scene s3">
+        <div class="family-stage">
+          <div class="room-light"></div>
+          <div class="floor"></div>
+          <div class="table"></div>
+          <div class="mug"></div>
+          <div class="mug m2"></div>
+          <div class="table-pack"><span>BEHAS</span></div>
+          <div class="fam">
+            <div class="fig f1"><div class="head"></div><div class="body"></div></div>
+            <div class="fig child f2"><div class="head"></div><div class="body"></div></div>
+            <div class="fig f3"><div class="head"></div><div class="body"></div></div>
+          </div>
+        </div>
+        <div class="badge">Shared moments</div>
+        <div class="fam-cap">A cup the <em>whole family</em> enjoys.</div>
+      </div>
+
+      <!-- Scene 4 — Morning -->
+      <div class="scene s4">
+        <div class="sun"></div>
+        <div class="badge">Morning</div>
+        <div class="cup-illu">
+          <div class="cup"></div>
+          <div class="handle"></div>
+          <div class="steam"><span></span><span></span><span></span></div>
+        </div>
+        <div class="caption-bot"><em>One cup</em> to start your day.</div>
+      </div>
+
+      <!-- Scene 5 — Evening -->
+      <div class="scene s5">
+        <div class="moon"></div>
+        <div class="stars"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="badge">Evening</div>
+        <div class="cup-illu">
+          <div class="cup"></div>
+          <div class="handle"></div>
+          <div class="steam"><span></span><span></span><span></span></div>
+        </div>
+        <div class="caption-bot"><em>One cup</em> to close it gently.</div>
+      </div>
+
+      <!-- Scene 6 — Pricing -->
+      <div class="scene s6">
+        <div class="price-wrap">
+          <div class="head">
+            <div class="e">Pack &amp; Price</div>
+            <h2>Wellness, <em>ready for home.</em></h2>
+          </div>
+          <div class="price-row">
+            <div class="price-card c1">
+              <h3>Carton</h3>
+              <div class="qty">30 pcs inside</div>
+              <div class="amount">₦20,000</div>
+            </div>
+            <div class="price-card c2">
+              <h3>Sachet</h3>
+              <div class="qty">2 tea bags</div>
+              <div class="amount">₦2,500</div>
+            </div>
+          </div>
+          <div class="note">1 cup morning · 1 cup evening</div>
+        </div>
+      </div>
+
+      <!-- Scene 7 — End Card -->
+      <div class="scene s7">
+        <div class="end">
+          <div class="mark">BEHAS</div>
+          <div class="rule"></div>
+          <div class="h">Ajami Natural Pharmacy</div>
+          <div class="tag">Relax · Restore · Enjoy</div>
+          <div class="follow">Follow @behas.tea</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IG footer with icons + caption -->
+    <div class="ig-foot">
+      <div class="ig-icons">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.5-7 10-7 10z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.5 7.5L3 21l1.5-5.5A8.5 8.5 0 1 1 21 12z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+        <svg class="right" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16l7-4 7 4z"/></svg>
+      </div>
+      <div class="ig-caption"><b>behas.tea</b> A moment for you, morning &amp; evening. 🍵 #BEHAS #AjamiNaturalPharmacy</div>
+    </div>
+
+  </div>
+
+  <div class="below">
+    <b>Instagram post preview (4:5)</b> · 30-second auto-looping motion graphics advert for BEHAS by Ajami Natural Pharmacy. Branded carton &amp; sachet, family ritual scene, morning &amp; evening cups, pricing, end card.
+  </div>
+
+  <div class="actions">
+    <button onclick="replay()">↻ Replay</button>
+    <a href="index.html" class="ghost">← Landing page</a>
+    <a href="video.html" class="ghost">16:9 version</a>
+  </div>
+</div>
+
+<script>
+  function replay(){
+    const ig = document.getElementById('ig');
+    const clone = ig.cloneNode(true);
+    ig.parentNode.replaceChild(clone, ig);
+  }
+</script>
+
+</body>
+</html>
