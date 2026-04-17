@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BEHAS — Herbal Wellness Tea by Ajami Natural Pharmacy</title>
+<style>
+  :root{
+    --green-deep:#0f3b2e;
+    --green:#1d6b4f;
+    --gold:#d4a64a;
+    --gold-soft:#e7c780;
+    --cream:#f7f1e3;
+    --brown:#3b2a1d;
+    --ink:#0b1a14;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--green-deep);color:var(--cream);font-family:"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 36px;backdrop-filter:blur(10px);
+    background:rgba(15,59,46,.55);border-bottom:1px solid rgba(212,166,74,.2)
+  }
+  nav .brand{font-weight:800;letter-spacing:4px;color:var(--gold)}
+  nav ul{display:flex;gap:28px;list-style:none;font-size:14px;letter-spacing:1.5px;text-transform:uppercase}
+  nav ul a:hover{color:var(--gold-soft)}
+  .cta{background:var(--gold);color:var(--green-deep);padding:10px 20px;border-radius:999px;font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;transition:.3s}
+  .cta:hover{background:var(--gold-soft);transform:translateY(-2px)}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr;align-items:center;
+    padding:140px 80px 80px;gap:40px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(1200px 600px at 80% 20%,rgba(212,166,74,.18),transparent 60%),
+      radial-gradient(800px 600px at 10% 90%,rgba(29,107,79,.4),transparent 60%),
+      var(--green-deep);
+  }
+  .hero h1{
+    font-family:Georgia,"Times New Roman",serif;font-weight:400;
+    font-size:clamp(40px,6vw,88px);line-height:1.02;color:#fff;
+    letter-spacing:-1px;margin-bottom:24px
+  }
+  .hero h1 em{font-style:italic;color:var(--gold)}
+  .hero p{font-size:18px;line-height:1.7;color:#e9e2cf;max-width:520px;margin-bottom:32px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;border:1px solid rgba(212,166,74,.4);padding:8px 16px;border-radius:999px}
+
+  .hero-buttons{display:flex;gap:14px;flex-wrap:wrap}
+  .btn-ghost{padding:12px 22px;border-radius:999px;border:1px solid rgba(247,241,227,.35);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;transition:.3s}
+  .btn-ghost:hover{background:rgba(247,241,227,.08);border-color:var(--gold)}
+
+  /* ---------- CUP ART ---------- */
+  .cup-wrap{position:relative;display:flex;justify-content:center;align-items:center;height:580px}
+  .cup{
+    position:relative;width:300px;height:340px;border-radius:18px 18px 140px 140px;
+    background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+    border:2px solid rgba(247,241,227,.35);
+    box-shadow:0 30px 60px rgba(0,0,0,.45), inset 0 0 60px rgba(212,166,74,.08);
+    overflow:hidden;
+  }
+  .tea{
+    position:absolute;left:8px;right:8px;bottom:8px;height:70%;
+    background:linear-gradient(180deg,#caa24a,#7a4a1d 85%);
+    border-radius:10px 10px 130px 130px;
+    box-shadow:inset 0 10px 20px rgba(255,255,255,.15), inset 0 -30px 40px rgba(0,0,0,.3)
+  }
+  .tea::after{
+    content:"";position:absolute;top:4%;left:10%;right:10%;height:10px;
+    background:radial-gradient(ellipse at center,rgba(255,255,255,.35),transparent 70%);
+    border-radius:50%;
+  }
+  .saucer{
+    position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);
+    width:420px;height:40px;border-radius:50%;
+    background:radial-gradient(ellipse at center,rgba(247,241,227,.18),rgba(247,241,227,.02) 70%);
+    filter:blur(2px)
+  }
+  .steam{position:absolute;top:-40px;left:0;right:0;height:220px;pointer-events:none}
+  .steam span{
+    position:absolute;bottom:0;width:16px;height:16px;background:rgba(247,241,227,.55);border-radius:50%;
+    filter:blur(10px);animation:rise 4.5s ease-in infinite;opacity:0
+  }
+  .steam span:nth-child(1){left:30%;animation-delay:0s}
+  .steam span:nth-child(2){left:45%;animation-delay:1.2s}
+  .steam span:nth-child(3){left:58%;animation-delay:2.1s}
+  .steam span:nth-child(4){left:38%;animation-delay:3s}
+  .steam span:nth-child(5){left:52%;animation-delay:.6s}
+  @keyframes rise{
+    0%{transform:translateY(0) scale(1);opacity:0}
+    20%{opacity:.7}
+    100%{transform:translateY(-220px) scale(2.4);opacity:0}
+  }
+
+  /* tea bag string hanging into cup */
+  .string{
+    position:absolute;top:-80px;left:50%;width:2px;height:120px;background:rgba(247,241,227,.7);
+    transform:translateX(-50%) rotate(6deg);transform-origin:top center;
+    animation:sway 3s ease-in-out infinite alternate
+  }
+  .tag{
+    position:absolute;top:-110px;left:50%;transform:translateX(-50%);
+    background:var(--gold);color:var(--green-deep);font-weight:800;font-size:11px;letter-spacing:2px;
+    padding:5px 10px;border-radius:3px;box-shadow:0 6px 10px rgba(0,0,0,.3)
+  }
+  @keyframes sway{from{transform:translateX(-50%) rotate(6deg)}to{transform:translateX(-50%) rotate(-6deg)}}
+
+  /* leaves */
+  .leaf{position:absolute;width:18px;height:30px;background:var(--green);border-radius:0 100% 0 100%;opacity:.8;animation:float 7s ease-in-out infinite}
+  .leaf::before{content:"";position:absolute;inset:0;border-left:1px solid rgba(0,0,0,.25);transform:rotate(45deg)}
+  .leaf.l1{top:10%;left:12%;animation-delay:0s}
+  .leaf.l2{top:70%;right:8%;animation-delay:2s;transform:rotate(20deg)}
+  .leaf.l3{top:30%;right:5%;animation-delay:4s;transform:rotate(-30deg)}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(8deg)}}
+
+  /* ---------- STORY STRIP ---------- */
+  section{padding:100px 80px}
+  .strip{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+    background:linear-gradient(180deg,#0c3327,#0f3b2e);
+    border-top:1px solid rgba(212,166,74,.15);border-bottom:1px solid rgba(212,166,74,.15)
+  }
+  .strip .card{
+    padding:30px;border-right:1px solid rgba(247,241,227,.08);text-align:left
+  }
+  .strip .card:last-child{border-right:none}
+  .strip .num{font-family:Georgia,serif;font-size:42px;color:var(--gold);line-height:1}
+  .strip h3{margin:12px 0 8px;font-size:18px;letter-spacing:1px;text-transform:uppercase;color:#fff}
+  .strip p{font-size:14px;line-height:1.6;color:#cfc9b6}
+
+  /* ---------- RITUAL ---------- */
+  .ritual{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .ritual h2{font-family:Georgia,serif;font-size:clamp(32px,4vw,58px);font-weight:400;color:#fff;line-height:1.1;margin-bottom:20px}
+  .ritual h2 em{color:var(--gold);font-style:italic}
+  .ritual p{font-size:17px;line-height:1.8;color:#d9d3bf;margin-bottom:16px}
+
+  .pack{
+    position:relative;aspect-ratio:4/5;
+    background:linear-gradient(160deg,#155a40,#0a2e22);
+    border-radius:14px;padding:30px;border:1px solid rgba(212,166,74,.35);
+    box-shadow:0 40px 80px rgba(0,0,0,.5);display:flex;flex-direction:column;justify-content:space-between;
+    overflow:hidden
+  }
+  .pack::before{
+    content:"";position:absolute;inset:-2px;border-radius:14px;pointer-events:none;
+    background:linear-gradient(180deg,transparent 40%,rgba(212,166,74,.15),transparent 80%);
+  }
+  .pack .small{font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase}
+  .pack .name{font-family:Georgia,serif;font-size:64px;font-weight:700;color:var(--cream);letter-spacing:6px;line-height:1}
+  .pack .tagline{font-size:13px;color:#cdbf94;letter-spacing:3px;text-transform:uppercase}
+  .pack .seal{
+    align-self:flex-end;width:90px;height:90px;border-radius:50%;
+    border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;
+    font-size:10px;letter-spacing:2px;color:var(--gold);text-align:center;padding:10px
+  }
+
+  /* ---------- PILLARS ---------- */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;text-align:center}
+  .pill{
+    padding:36px 24px;border:1px solid rgba(247,241,227,.1);border-radius:16px;
+    background:rgba(247,241,227,.03);transition:.4s
+  }
+  .pill:hover{transform:translateY(-6px);border-color:var(--gold);background:rgba(212,166,74,.05)}
+  .pill .icon{
+    width:56px;height:56px;margin:0 auto 18px;border-radius:50%;
+    background:linear-gradient(180deg,var(--gold),#9a7024);display:flex;align-items:center;justify-content:center;
+    font-size:26px;color:var(--green-deep);font-weight:700
+  }
+  .pill h4{font-size:18px;margin-bottom:10px;letter-spacing:1px;color:#fff}
+  .pill p{font-size:14px;line-height:1.7;color:#cfc9b6}
+
+  /* ---------- QUOTE ---------- */
+  .quote{
+    text-align:center;padding:120px 40px;
+    background:
+      radial-gradient(600px 400px at 50% 30%,rgba(212,166,74,.12),transparent 60%),
+      #0a2e22;
+    border-top:1px solid rgba(212,166,74,.2);border-bottom:1px solid rgba(212,166,74,.2)
+  }
+  .quote blockquote{
+    font-family:Georgia,serif;font-style:italic;font-size:clamp(26px,3.4vw,44px);
+    max-width:900px;margin:0 auto;line-height:1.3;color:#fff
+  }
+  .quote blockquote span{color:var(--gold)}
+  .quote .sig{margin-top:20px;font-size:12px;letter-spacing:4px;color:var(--gold);text-transform:uppercase}
+
+  /* ---------- CTA BAND ---------- */
+  .band{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:40px 80px;background:var(--gold);color:var(--green-deep);
+    gap:24px;flex-wrap:wrap
+  }
+  .band h3{font-family:Georgia,serif;font-size:28px;font-weight:400}
+  .band .cta-dark{background:var(--green-deep);color:var(--gold);padding:14px 26px;border-radius:999px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:13px}
+  .band .cta-dark:hover{background:#000}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:60px 80px 40px;font-size:13px;color:#9aa49a;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;border-top:1px solid rgba(247,241,227,.08)}
+  footer .brand-foot{font-family:Georgia,serif;font-size:24px;color:var(--gold);margin-bottom:8px;letter-spacing:4px}
+  footer ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+  footer h5{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#fff;margin-bottom:12px}
+  .disclaimer{margin-top:40px;padding-top:20px;border-top:1px solid rgba(247,241,227,.08);font-size:11px;color:#7c8578;line-height:1.7;grid-column:1/-1}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:980px){
+    nav{padding:14px 20px}
+    nav ul{display:none}
+    .hero{grid-template-columns:1fr;padding:120px 24px 60px;text-align:center}
+    .hero p{margin-left:auto;margin-right:auto}
+    .hero-buttons{justify-content:center}
+    section{padding:60px 24px}
+    .strip{grid-template-columns:1fr 1fr}
+    .strip .card{border-right:none;border-bottom:1px solid rgba(247,241,227,.08)}
+    .ritual{grid-template-columns:1fr}
+    .pillars{grid-template-columns:1fr}
+    .band{padding:30px 24px;text-align:center;justify-content:center}
+    footer{grid-template-columns:1fr;padding:40px 24px}
+  }
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- VIDEO SECTION ---------- */
+  .video-section{
+    padding:120px 40px;text-align:center;
+    background:
+      radial-gradient(800px 500px at 50% 20%,rgba(212,166,74,.15),transparent 60%),
+      #0a2e22;
+    border-top:1px solid rgba(212,166,74,.2)
+  }
+  .video-section .eyebrow{margin-bottom:20px}
+  .video-section h2{font-family:Georgia,serif;font-size:clamp(32px,4vw,56px);font-weight:400;color:#fff;line-height:1.1;margin-bottom:14px}
+  .video-section h2 em{color:var(--gold);font-style:italic}
+  .video-section .lead{max-width:620px;margin:0 auto 50px;color:#cfc9b6;font-size:16px;line-height:1.7}
+
+  /* Phone frame */
+  .phone{
+    position:relative;width:320px;max-width:90vw;margin:0 auto;
+    aspect-ratio:9/19.5;border-radius:46px;padding:14px;
+    background:linear-gradient(160deg,#1a1a1a,#000);
+    box-shadow:0 50px 100px rgba(0,0,0,.7), inset 0 0 0 2px rgba(212,166,74,.25)
+  }
+  .phone::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#000;border-radius:999px;z-index:5}
+  .screen{
+    position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden;
+    background:#0f3b2e
+  }
+  .screen video{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* Fallback CSS "video" — auto-playing 30s scene sequence */
+  .reel{position:absolute;inset:0;display:block}
+  .reel[hidden]{display:none}
+  .scene{position:absolute;inset:0;opacity:0;display:flex;align-items:center;justify-content:center;padding:40px 24px;text-align:center;overflow:hidden}
+  .scene .cap{
+    position:absolute;bottom:50px;left:0;right:0;padding:0 24px;
+    font-family:Georgia,serif;font-size:22px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.6);
+    line-height:1.25
+  }
+  .scene .chip{
+    position:absolute;top:50px;left:50%;transform:translateX(-50%);
+    background:var(--gold);color:var(--green-deep);font-weight:800;font-size:11px;letter-spacing:3px;
+    padding:7px 14px;border-radius:999px;text-transform:uppercase
+  }
+
+  /* Scene 1 — morning */
+  .s1{background:linear-gradient(180deg,#f3c97a,#c27b3d 60%,#0f3b2e)}
+  .s1 .sun{position:absolute;top:18%;left:50%;transform:translateX(-50%);width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,#fff,#fbe4a8 40%,transparent 70%);filter:blur(2px)}
+  .s1 .cup-mini{position:absolute;bottom:110px;left:50%;transform:translateX(-50%);width:90px;height:80px;border:2px solid #fff;border-radius:8px 8px 40px 40px;background:rgba(255,255,255,.1)}
+  .s1 .cup-mini::after{content:"";position:absolute;inset:6px;background:linear-gradient(180deg,#caa24a,#7a4a1d);border-radius:4px 4px 34px 34px}
+
+  /* Scene 2 — pour */
+  .s2{background:radial-gradient(circle at 50% 40%,#1d6b4f,#0a2e22)}
+  .s2 .pour{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:6px;height:0;background:linear-gradient(180deg,#e7c780,#caa24a);animation:pour 3s .3s ease-out forwards;border-radius:4px}
+  .s2 .cup-big{position:absolute;bottom:120px;left:50%;transform:translateX(-50%);width:130px;height:120px;border:3px solid #fff;border-radius:10px 10px 60px 60px;overflow:hidden}
+  .s2 .cup-big::after{content:"";position:absolute;left:4px;right:4px;bottom:4px;height:0;background:linear-gradient(180deg,#caa24a,#7a4a1d);border-radius:0 0 54px 54px;animation:fill 3s .6s ease-out forwards}
+  @keyframes pour{from{height:0}to{height:120px}}
+  @keyframes fill{from{height:0}to{height:100px}}
+
+  /* Scene 3 — evening */
+  .s3{background:linear-gradient(180deg,#3a2b5c,#6b3a3a 70%,#2a1a14)}
+  .s3 .moon{position:absolute;top:16%;right:20%;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,#fff,#e9dcb5 50%,transparent 75%);filter:blur(1px)}
+  .s3 .stars span{position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;opacity:.8;animation:twinkle 2s ease-in-out infinite}
+  .s3 .stars span:nth-child(1){top:12%;left:20%;animation-delay:0s}
+  .s3 .stars span:nth-child(2){top:22%;left:70%;animation-delay:.5s}
+  .s3 .stars span:nth-child(3){top:30%;left:30%;animation-delay:1s}
+  .s3 .stars span:nth-child(4){top:18%;left:50%;animation-delay:1.5s}
+  @keyframes twinkle{0%,100%{opacity:.3}50%{opacity:1}}
+  .s3 .cup-mini{position:absolute;bottom:110px;left:50%;transform:translateX(-50%);width:90px;height:80px;border:2px solid #fff;border-radius:8px 8px 40px 40px;background:rgba(255,255,255,.08)}
+  .s3 .cup-mini::after{content:"";position:absolute;inset:6px;background:linear-gradient(180deg,#caa24a,#7a4a1d);border-radius:4px 4px 34px 34px}
+
+  /* Scene 4 — pricing */
+  .s4{background:linear-gradient(180deg,#0f3b2e,#0a2e22);color:#fff}
+  .price-grid{display:flex;flex-direction:column;gap:18px;width:100%;align-items:center}
+  .price-card{
+    background:rgba(212,166,74,.12);border:1px solid var(--gold);border-radius:14px;padding:18px 22px;width:85%;
+    text-align:left;display:flex;justify-content:space-between;align-items:center
+  }
+  .price-card h4{font-size:13px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+  .price-card .qty{font-size:12px;color:#cdbf94}
+  .price-card .amount{font-family:Georgia,serif;font-size:26px;color:#fff;font-weight:700}
+
+  /* Scene 5 — pack hero */
+  .s5{background:radial-gradient(circle at 50% 50%,#1d6b4f,#0a2e22)}
+  .pack-mini{
+    position:relative;width:180px;height:230px;border-radius:10px;
+    background:linear-gradient(160deg,#155a40,#0a2e22);
+    border:1px solid rgba(212,166,74,.5);padding:18px;display:flex;flex-direction:column;justify-content:space-between;
+    box-shadow:0 30px 50px rgba(0,0,0,.5);animation:rotate 6s linear infinite
+  }
+  .pack-mini .top{font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase}
+  .pack-mini .name{font-family:Georgia,serif;font-size:38px;font-weight:700;color:var(--cream);letter-spacing:4px}
+  .pack-mini .tag{font-size:9px;letter-spacing:2px;color:#cdbf94;text-transform:uppercase}
+  @keyframes rotate{0%{transform:rotateY(-12deg)}50%{transform:rotateY(12deg)}100%{transform:rotateY(-12deg)}}
+
+  /* Scene 6 — end card */
+  .s6{background:linear-gradient(180deg,#0a2e22,#000)}
+  .s6 .logo-big{font-family:Georgia,serif;font-size:54px;font-weight:700;color:var(--gold);letter-spacing:10px}
+  .s6 .sub{font-size:12px;letter-spacing:4px;color:#cdbf94;text-transform:uppercase;margin-top:14px}
+  .s6 .tagline{font-size:14px;color:#fff;margin-top:20px;letter-spacing:2px}
+
+  /* 30 second timeline — each scene visible for a slice */
+  .reel .scene{animation:sceneCycle 30s infinite}
+  .reel .s1{animation-delay:0s}
+  .reel .s2{animation-delay:4s}
+  .reel .s3{animation-delay:9s}
+  .reel .s4{animation-delay:15s}
+  .reel .s5{animation-delay:22s}
+  .reel .s6{animation-delay:27s}
+  @keyframes sceneCycle{
+    0%{opacity:0;transform:scale(1.04)}
+    1%{opacity:1;transform:scale(1)}
+    14%{opacity:1;transform:scale(1.03)}
+    17%{opacity:0}
+    100%{opacity:0}
+  }
+  /* override per scene for correct duration share */
+  .reel .s1{animation-duration:30s}
+  .reel .s2{animation-duration:30s}
+  .reel .s3{animation-duration:30s}
+  .reel .s4{animation-duration:30s}
+  .reel .s5{animation-duration:30s}
+  .reel .s6{animation-duration:30s}
+
+  /* Progress bar + branding overlay */
+  .progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.1);z-index:6}
+  .progress::after{content:"";position:absolute;left:0;top:0;height:100%;width:0;background:var(--gold);animation:bar 30s linear infinite}
+  @keyframes bar{from{width:0}to{width:100%}}
+
+  .watermark{position:absolute;top:50px;right:16px;font-size:9px;letter-spacing:3px;color:var(--gold);z-index:6;opacity:.85;text-transform:uppercase}
+
+  .controls{margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .controls button{
+    background:transparent;border:1px solid rgba(247,241,227,.3);color:#fff;
+    padding:10px 18px;border-radius:999px;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:.3s
+  }
+  .controls button:hover{background:var(--gold);color:var(--green-deep);border-color:var(--gold)}
+
+  .share-note{margin-top:40px;font-size:12px;color:#9aa49a;letter-spacing:2px;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">BEHAS</div>
+  <ul>
+    <li><a href="#video">Watch</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#ritual">Ritual</a></li>
+    <li><a href="#pillars">Why BEHAS</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="cta">Order now</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="reveal">
+    <span class="eyebrow">Ajami Natural Pharmacy</span>
+    <h1>A quiet moment, <em>brewed naturally.</em></h1>
+    <p>BEHAS is a soothing herbal tea crafted from natural ingredients — a gentle part of your daily wellness routine. Pour a cup. Pause. Restore.</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="cta">Order a carton</a>
+      <a href="#ritual" class="btn-ghost">Discover the ritual</a>
+    </div>
+  </div>
+
+  <div class="cup-wrap reveal">
+    <div class="leaf l1"></div>
+    <div class="leaf l2"></div>
+    <div class="leaf l3"></div>
+    <div class="cup">
+      <div class="steam">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="tag">BEHAS</div>
+      <div class="string"></div>
+      <div class="tea"></div>
+    </div>
+    <div class="saucer"></div>
+  </div>
+</header>
+
+<!-- VIDEO / REEL -->
+<section id="video" class="video-section">
+  <span class="eyebrow reveal">Watch the 30-second advert</span>
+  <h2 class="reveal">See BEHAS <em>in motion.</em></h2>
+  <p class="lead reveal">A preview of the BEHAS story — morning ritual, evening calm, and the pack that brings it home. The full cinematic version is currently in production.</p>
+
+  <div class="phone reveal">
+    <div class="screen">
+      <!-- When the real MP4 is ready, swap this video tag's src and remove [hidden] -->
+      <video id="realVideo" playsinline muted loop autoplay hidden>
+        <source src="behas-advert.mp4" type="video/mp4" />
+      </video>
+
+      <!-- Auto-playing CSS preview reel (fallback until MP4 is dropped in) -->
+      <div class="reel" id="cssReel">
+        <div class="watermark">BEHAS · Preview</div>
+
+        <!-- Scene 1 — Morning -->
+        <div class="scene s1">
+          <div class="sun"></div>
+          <div class="chip">Morning</div>
+          <div class="cup-mini"></div>
+          <div class="cap">Start your morning<br/>with a quiet moment.</div>
+        </div>
+
+        <!-- Scene 2 — Pour -->
+        <div class="scene s2">
+          <div class="chip">Brew</div>
+          <div class="pour"></div>
+          <div class="cup-big"></div>
+          <div class="cap">BEHAS — a soothing herbal tea<br/>by Ajami Natural Pharmacy.</div>
+        </div>
+
+        <!-- Scene 3 — Evening -->
+        <div class="scene s3">
+          <div class="moon"></div>
+          <div class="stars"><span></span><span></span><span></span><span></span></div>
+          <div class="chip">Evening</div>
+          <div class="cup-mini"></div>
+          <div class="cap">End your day<br/>the same gentle way.</div>
+        </div>
+
+        <!-- Scene 4 — Pricing -->
+        <div class="scene s4">
+          <div class="chip">Pack & price</div>
+          <div class="price-grid">
+            <div class="price-card">
+              <div>
+                <h4>Carton</h4>
+                <div class="qty">30 pieces inside</div>
+              </div>
+              <div class="amount">₦20,000</div>
+            </div>
+            <div class="price-card">
+              <div>
+                <h4>Sachet</h4>
+                <div class="qty">2 tea bags</div>
+              </div>
+              <div class="amount">₦2,500</div>
+            </div>
+          </div>
+          <div class="cap" style="bottom:28px;font-size:14px">1 cup morning · 1 cup evening</div>
+        </div>
+
+        <!-- Scene 5 — Pack Hero -->
+        <div class="scene s5">
+          <div class="chip">The pack</div>
+          <div class="pack-mini">
+            <div class="top">Ajami Natural<br/>Pharmacy</div>
+            <div>
+              <div class="name">BEHAS</div>
+              <div class="tag">Herbal Tea</div>
+            </div>
+            <div class="tag">20 Sachets · 40g</div>
+          </div>
+          <div class="cap">Crafted for your<br/>daily wellness routine.</div>
+        </div>
+
+        <!-- Scene 6 — End Card -->
+        <div class="scene s6">
+          <div>
+            <div class="logo-big">BEHAS</div>
+            <div class="sub">Ajami Natural Pharmacy</div>
+            <div class="tagline">Relax · Restore · Enjoy</div>
+          </div>
+        </div>
+
+        <div class="progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls reveal">
+    <button onclick="document.getElementById('cssReel').style.animationPlayState='running';restartReel()">▶ Replay preview</button>
+    <a href="#contact" class="btn-ghost" style="padding:10px 18px">Share with client</a>
+  </div>
+
+  <div class="share-note reveal">Sample preview · Final cinematic cut in production</div>
+</section>
+
+<!-- STORY STRIP -->
+<section id="story" class="strip">
+  <div class="card reveal">
+    <div class="num">01</div>
+    <h3>Tear</h3>
+    <p>Open a single BEHAS sachet. Fresh, fragrant, ready.</p>
+  </div>
+  <div class="card reveal">
+    <div class="num">02</div>
+    <h3>Steep</h3>
+    <p>Pour hot water. Watch the golden infusion bloom.</p>
+  </div>
+  <div class="card reveal">
+    <div class="num">03</div>
+    <h3>Breathe</h3>
+    <p>Inhale the gentle aroma. Slow your morning down.</p>
+  </div>
+  <div class="card reveal">
+    <div class="num">04</div>
+    <h3>Enjoy</h3>
+    <p>A warm, balanced cup — part of your wellness routine.</p>
+  </div>
+</section>
+
+<!-- RITUAL -->
+<section id="ritual" class="ritual">
+  <div class="reveal">
+    <span class="eyebrow">The ritual</span>
+    <h2>Brewed for <em>balance</em>, built for everyday life.</h2>
+    <p>BEHAS is packed in convenient tea sachets inside a premium carton — easy at home, easy on the go. Every sachet is crafted with care by Ajami Natural Pharmacy using natural ingredients you can trust.</p>
+    <p>Make it your morning pause, your afternoon reset, or the calm close to a long day.</p>
+    <a href="#contact" class="cta" style="margin-top:10px">Start your ritual</a>
+  </div>
+  <div class="pack reveal">
+    <div>
+      <div class="small">Ajami Natural Pharmacy</div>
+      <div style="height:14px"></div>
+      <div class="small" style="color:#cdbf94">Herbal Wellness Tea</div>
+    </div>
+    <div>
+      <div class="name">BEHAS</div>
+      <div style="height:10px"></div>
+      <div class="tagline">Relax · Restore · Enjoy</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end">
+      <div class="small" style="line-height:1.6">20 Sachets<br/>Net 40g</div>
+      <div class="seal">100%<br/>Natural<br/>Blend</div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section id="pillars">
+  <div style="text-align:center;margin-bottom:50px" class="reveal">
+    <span class="eyebrow">Why BEHAS</span>
+    <h2 style="font-family:Georgia,serif;font-size:clamp(30px,3.6vw,50px);font-weight:400;color:#fff;margin-top:10px">Small sachet. <em style="color:var(--gold);font-style:italic">Big intention.</em></h2>
+  </div>
+  <div class="pillars">
+    <div class="pill reveal">
+      <div class="icon">🌿</div>
+      <h4>Natural ingredients</h4>
+      <p>Carefully selected botanicals, blended for a smooth, satisfying cup.</p>
+    </div>
+    <div class="pill reveal">
+      <div class="icon">☕</div>
+      <h4>Everyday ritual</h4>
+      <p>An easy, comforting addition to mornings, breaks and quiet evenings.</p>
+    </div>
+    <div class="pill reveal">
+      <div class="icon">✦</div>
+      <h4>Crafted by Ajami</h4>
+      <p>Made with the care of Ajami Natural Pharmacy — quality you can taste.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote reveal">
+  <blockquote>
+    "Relax. Restore. <span>Enjoy.</span>"
+  </blockquote>
+  <div class="sig">— BEHAS by Ajami Natural Pharmacy</div>
+</section>
+
+<!-- CTA BAND -->
+<section class="band" id="contact">
+  <h3>Bring BEHAS home today.</h3>
+  <a href="mailto:orders@ajaminaturalpharmacy.com" class="cta-dark">Order a carton</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="brand-foot">BEHAS</div>
+    <p>A soothing herbal tea by Ajami Natural Pharmacy. Part of a balanced lifestyle.</p>
+  </div>
+  <div>
+    <h5>Explore</h5>
+    <ul>
+      <li><a href="#story">Story</a></li>
+      <li><a href="#ritual">The ritual</a></li>
+      <li><a href="#pillars">Why BEHAS</a></li>
+    </ul>
+  </div>
+  <div>
+    <h5>Contact</h5>
+    <ul>
+      <li>Ajami Natural Pharmacy</li>
+      <li>orders@ajaminaturalpharmacy.com</li>
+      <li>+000 000 000 000</li>
+    </ul>
+  </div>
+  <div class="disclaimer">
+    BEHAS is a herbal wellness tea intended for general enjoyment as part of a balanced lifestyle. It is not a medicine and is not intended to diagnose, treat, cure, or prevent any disease. Always consult a qualified healthcare professional for any health concerns. Use as directed.
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Restart the CSS reel
+  function restartReel(){
+    const reel = document.getElementById('cssReel');
+    if(!reel) return;
+    const scenes = reel.querySelectorAll('.scene, .progress::after');
+    reel.querySelectorAll('.scene').forEach(s=>{
+      s.style.animation='none'; s.offsetHeight; s.style.animation='';
+    });
+    const bar = reel.querySelector('.progress');
+    if(bar){ bar.style.animation='none'; bar.offsetHeight; bar.style.animation=''; }
+  }
+
+  // If real MP4 is present and loads, use it and hide the CSS reel
+  (function swapVideo(){
+    const v = document.getElementById('realVideo');
+    if(!v) return;
+    v.addEventListener('loadeddata', ()=>{
+      v.hidden = false;
+      const reel = document.getElementById('cssReel');
+      if(reel) reel.hidden = true;
+    });
+    v.addEventListener('error', ()=>{ /* keep reel as fallback */ });
+  })();
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',ev=>{
+      const id=a.getAttribute('href');
+      if(id.length>1){
+        ev.preventDefault();
+        document.querySelector(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    });
+  });
+</script>
+</body>
+</html>
